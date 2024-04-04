@@ -8,25 +8,30 @@ internal class Program
         Console.WriteLine("*****************************************************************************************************");
         Console.WriteLine("\n\t PROJETO QUE FAZ A PROGRAMAÇÃO DO CÓDIGO USANDO SIMPLE FACTORY");
         Console.WriteLine("Selecione o tipo de transação desejada: \n 1 - Pix \n 2 - Cartão \n 3 - Cheque \n 4 - Boleto ");
-        string? typeTransactionIn = Console.ReadLine();
+        string? typeTransactionIn = Console.ReadLine(); // coleta os dados de transação
 
         Console.WriteLine("Digite o valor: ");
-        string? valueTransactionIn = Console.ReadLine();
+        string? valueTransactionIn = Console.ReadLine(); // coleta o valor a ser inserido no pagamento
 
-        TypePayment typePayment = VerifyEntrance(typeTransactionIn);
-        if (double.TryParse(valueTransactionIn, out double value) == true)
+        TypePayment typePayment = VerifyEntrance(typeTransactionIn); // defino qual é o tipo de entrada
+        if (double.TryParse(valueTransactionIn, out double value) == true) //converto o valor para double
         {
             try
             {
-                Payment payment = PaymentSimpleFactory.DoItPayment(typePayment);
-                payment.PaymentTransaction(value);
-                payment.ReceiveTransaction(value);
+                Payment payment = PaymentSimpleFactory.DoItPayment(typePayment); // chamo o método que faz o pagamento, passando o parâmetro necessário para instanciar o objeto certo
+                payment.PaymentTransaction(value); // faz o pgto
+                payment.ReceiveTransaction(value); // recebe a transação 
+
                 Console.WriteLine("\n Transação concluída com sucesso!");
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); // imprime o erro na tela
             }
+        }
+        else
+        {
+            Console.WriteLine("\n O valor de entrada não foi um valor numérico válido!");
         }
     }
 
